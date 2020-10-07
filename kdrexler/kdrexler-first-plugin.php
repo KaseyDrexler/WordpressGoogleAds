@@ -7,7 +7,7 @@
  * Author: Kasey Drexler
  * Author URI: http://kdrexler.com
  */
- 
+
 
 
 
@@ -19,15 +19,15 @@
 /// functions to call and print ads out on screens
 
 function kdrexler_horizontal_ad ($content) {
-    if (! is_admin() ) {
+    if ( is_singular() && in_the_loop() && is_main_query() ) {
         $options = get_option( 'kdrexler_values' );
         if (isset($options['ad_slot_horizontal']) && strlen($options['ad_slot_horizontal'])>0 && isset($options['ad_slot_horizontal_visible']) && isset($options['ad_slot_horizontal_visible'])==1) {
-    	   echo $content.'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Display Ad1 --><ins class="adsbygoogle" style="display:block" data-ad-client="'.esc_attr($options['api_key']).'" data-ad-slot="'.$options['ad_slot_horizontal'].'" data-ad-format="auto" data-full-width-responsive="false"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>';
-    	}
+            echo $content.'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Display Ad1 --><ins class="adsbygoogle" style="display:block" data-ad-client="'.esc_attr($options['api_key']).'" data-ad-slot="'.$options['ad_slot_horizontal'].'" data-ad-format="auto" data-full-width-responsive="false"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>';
+        }
     }
 }
 function kdrexler_square_ad ($content) {
-    if (! is_admin() ) {
+    if ( is_singular() && in_the_loop() && is_main_query() ) {
         $options = get_option( 'kdrexler_values' );
         if (isset($options['ad_slot_square']) && strlen($options['ad_slot_square'])>0 && isset($options['ad_slot_square_visible']) && isset($options['ad_slot_square_visible'])==1) {
             echo $content.'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Display Ad1 --><ins class="adsbygoogle" style="display:block" data-ad-client="'.esc_attr($options['api_key']).'" data-ad-slot="'.$options['ad_slot_square'].'" data-ad-format="auto" data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>';
@@ -35,7 +35,7 @@ function kdrexler_square_ad ($content) {
     }
 }
 function kdrexler_vertical_ad ($content) {
-    if (! is_admin() ) {
+    if ( is_singular() && in_the_loop() && is_main_query() ) {
         $options = get_option( 'kdrexler_values' );
         if (isset($options['ad_slot_vertical']) && strlen($options['ad_slot_vertical'])>0 && isset($options['ad_slot_vertical_visible']) && isset($options['ad_slot_vertical_visible'])==1) {
             echo $content.'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Display Ad1 --><ins class="adsbygoogle" style="display:block" data-ad-client="'.esc_attr($options['api_key']).'" data-ad-slot="'.$options['ad_slot_vertical'].'" data-ad-format="auto" data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>';
@@ -45,7 +45,9 @@ function kdrexler_vertical_ad ($content) {
 
 // Setup horizontal ads below each post
 
-add_action('the_content', 'kdrexler_horizontal_ad', 1);
+if (! is_admin() && !wp_doing_ajax() ) {
+    add_action('the_content', 'kdrexler_horizontal_ad', 1);
+}
 // add a new option
 
 
