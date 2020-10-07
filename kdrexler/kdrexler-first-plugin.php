@@ -45,7 +45,7 @@ function kdrexler_square_ad ($content) {
     }
 }
 function kdrexler_vertical_ad ($content) {
-    if ( !is_admin() && is_main_query() && !is_page() ) {
+    if ( !is_admin() ) {
         $options = get_option( 'kdrexler_values' );
         if (isset($options['ad_slot_vertical']) && strlen($options['ad_slot_vertical'])>0 && isset($options['ad_slot_vertical_visible']) && isset($options['ad_slot_vertical_visible'])==1) {
             echo $content.'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Display Ad1 --><ins class="adsbygoogle" style="display:block" data-ad-client="'.esc_attr($options['api_key']).'" data-ad-slot="'.$options['ad_slot_vertical'].'" data-ad-format="auto" data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>';
